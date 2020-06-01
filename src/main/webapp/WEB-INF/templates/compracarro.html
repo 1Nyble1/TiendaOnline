@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>CARRO</title>
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>		
+		
+		<div>
+			<h2>CARRO</h2>
+			<div>
+				<div>
+					<div th:if="${success}">
+						<strong>COMPRA REALIZADA</strong>
+					</div>
+					
+					<div th:if="${danger}">
+						<strong>SIN STOCK</strong>
+					</div>
+					
+					<div th:if="${info}">
+						<strong>CARRITO VACIO</strong>
+					</div>
+					
+					<form action="#" th:action="@{/login}" method="post">
+						<div>
+							<div>
+								<table>
+									<thead>
+										<tr>
+											<th>NOMBRE</th>
+											<th>PRECIO</th>
+											<th>CANTIDAD</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										<tr th:each="producto : ${productos}">
+											<td th:text="${producto.nombreProducto}"></td>
+											<td th:text="${producto.precio}"></td>
+											<td th:text="${producto.stock}"></td>
+									</tbody>
+								</table>
+	
+							</div>
+	
+							<div>
+
+								<div>
+									<a href="/tiendaOnline/compras/crear_Compra">COMPRAR</a>
+								</div>
+							</div>
+						</div>
+					</form>
+	
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

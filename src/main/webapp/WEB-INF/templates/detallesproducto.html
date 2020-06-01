@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>DETALLES PRODUCTO</title>
+	</head>
+
+	<body>	
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>		
+		
+		<div>
+			<h2>DETALLES PRODUCTO</h2>
+			<div>
+				<div th:if="${success}">
+					<strong>PRODUCTO ANNADIDO AL CARRO</strong>
+				</div>
+				
+				<div th:if="${danger}">
+					<strong>NO QUEDA STOCK</strong>
+				</div>
+				
+				<div>
+					<div th:if="${producto.imagen.isEmpty()}">
+						<img th:src="@{/images/mostaza.jpg}" alt="Foto no disponible">
+					</div>
+					
+					<div th:if="${!producto.imagen.isEmpty()}">
+						<img th:src="@{/producto/imagen/{idProducto}(idProducto=${producto.idProducto})}" alt="Foto disponible">
+					</div>
+					
+					<label type="hidden" id="idProducto" name="idProducto"
+						th:value="${producto.idProducto}"></label>
+						
+					<p th:if="${exception}" class="error">Contrasenna o usuario incorrecto</p>
+					
+					<form action="#" th:object="${producto}" method="post">
+	
+						<h2>NOMBRE PRODUCTO</h2>
+						<p id="nombreProducto" name="nombreProducto"
+							th:text="*{nombreProducto}"></p>
+	
+						<h2>PRECIO</h2>
+						<p id="precio" name="precio" th:text="*{precio}"></p>
+	
+						<h2>STOCK</h2>
+						<p id="stock" name="stock" th:text="*{stock}"></p>
+	
+						<h2>CATEGORIA</h2>
+						<p id="categoria" name="categoria"
+							th:text="${categoria.nombreCategoria}"></p>
+	
+						<h2>DESCRIPCION</h2>
+						<p id="descripcion" name="descripcion" th:text="*{descripcion}"></p>
+	
+					</form>
+
+					<div sec:authorize="hasAuthority('ROL_USER') || hasAuthority('ROL_ADMIN')">
+					
+						<form action="#" th:object="${producto}"
+							th:action="@{/producto/detallesProducto/} + *{idProducto}"
+							method="post">
+							<label for="username">Numero a comprar:</label>
+							
+							<div>
+								<input type="text" id="cantidad" name="cantidad"
+									placeholder="Num. Productos" required pattern="[0-9]" /><br />
+							</div>
+							
+							<div>
+								<input type="submit" value="ANNADIR" />
+							</div>
+						</form>
+						<br/>
+						<div sec:authorize="hasAuthority('ROL_ADMIN')">
+							<a href=# th:href="@{/producto/editarproducto/{idProducto}(idProducto = ${producto.idProducto})}">EDITAR
+							PRODUCTO</a>
+						</div>
+						<br/>
+					</div>
+	
+					<form th:action="@{/producto/preguntar/} + ${producto.idProducto}" method="post" id="preguntar">
+						<div>
+							<label for="pregunta"></label>Preguntar<input
+								type="text" id="pregunta" name="pregunta" /> <br />
+						</div>
+
+						<div>
+							<input type="submit" value="Preguntar" />
+						</div>
+					</form>
+					
+					<script type="text/javascript">
+						$('#preguntar').submit(function(evento) {
+							$.ajax({
+								url : 'producto/preguntar/} + ${producto.idProducto}',
+								type : 'POST',
+								data : JSON.stringify({
+									pregunta : $('#pregunta').val()
+								}),
+								processData : false,
+								contentType : "application/json"
+							})
+							evento.preventDefault();
+						});
+					</script>
+
+					<table>
+						<thead>
+							<tr>
+								<th>
+								<th>
+								<th>
+								<th>
+								<th></th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<span th:each="pregunta : ${preguntas}">
+								<td th:text="${pregunta.pregunta}"></td>
+								<td>
+									<form
+										th:action='@{/producto/responder/} + ${pregunta.idPregunta}'
+										method='post' id='responder'>
+										<div>
+											<label for='respuesta'></label>Responder <input
+												type='text' id="respuesta" name='respuesta' /> <input
+												type='hidden' id='idProducto' name='idProducto'
+												th:value='${producto.idProducto}'>
+										</div>
+										
+										<div>
+											<input type='submit' value="Responder" />
+										</div>
+									</form>
+									
+									 <script type="text/javascript">
+										$('#responder').submit(function(evento) {
+											$.ajax({
+												url : 'producto/responder/} + ${pregunta.idPregunta}',
+												type : 'POST',
+												data : JSON.stringify({
+													respuesta : $('#respuesta').val()
+												}),
+												processData : false,
+												contentType : "application/json"
+											})
+											evento.preventDefault();
+										});
+									</script>
+								</td>
+								
+								 <span th:each="respuesta : ${respuestas}">
+							
+								<tr th:each="r : ${respuesta}">
+									<td></td>
+									<td></td>
+									<td th:if="${r.pregunta.idPregunta == pregunta.idPregunta}"
+										th:text="${r.textoRespuesta}"></td>
+								</tr>
+							</span>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

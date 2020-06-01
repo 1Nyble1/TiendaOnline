@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>LISTADO DE CATEGORIAS</title>
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>	
+		
+		<div>
+			<h2>LISTADO DE CATEGORIAS</h2>
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<th>NOMBRE</th>
+								<th>DESCRIPCION</th>
+								<th>DETALLES</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<tr th:each="categoria : ${categorias}">
+								<td th:text="${categoria.nombreCategoria}"></td>
+								<td th:text="${categoria.descripcionCategoria}"></td>
+								<td><a href=#
+									th:href="@{/categoria/detallesCategoria/{idCategoria}(idCategoria = ${categoria.idCategoria})}">
+									DETALLES CATEGORIA</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		</div>
+	</body>
+	
+</html>

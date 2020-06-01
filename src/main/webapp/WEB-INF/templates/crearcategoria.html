@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>CREAR CATEGORIA</title>
+	</head>
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+	
+		<div>
+			<h2>CREAR CATEGORIA</h2>
+			<div>
+					<div>
+						<form th:action="@{/categoria/crearcategoria}" method="post"
+							id="crearC">
+							<div>
+								<div>
+									<label for="nombreProducto"></label>NOMBRE: <input type="text"
+										id="nombreCategoria" name="nombreCategoria"
+										placeholder="Nombre" required pattern="[A-Za-z]{5,40}" /><br />
+								</div>
+								
+								<div>
+									<label for="descripcion"></label>DESCRIPCION: <input type="text" placeholder="Descripcion"
+										id="descripcionCategoria" name="descripcionCategoria" /> <br />
+								</div>
+								
+								<div>
+									<input type="submit" value="CREAR CATEGORIA" />
+								</div>
+								
+								<script type="text/javascript">
+									$('#crearC').submit(function(evento) {
+										$.ajax({
+											url : 'categoria/crearcategoria',
+											type : 'POST',
+											data : JSON.stringify({
+												nombreCategoria : $('#nombreCategoria').val(),
+												descripcionCategoria : $('#descripcionCategoria').val()
+											}),
+											processData : false,
+											contentType : "application/json"
+										})
+										evento.preventDefault();
+									});
+								</script>
+							</div>
+						</form>
+					</div>
+			</div>
+		</div>
+	</body>
+</html>

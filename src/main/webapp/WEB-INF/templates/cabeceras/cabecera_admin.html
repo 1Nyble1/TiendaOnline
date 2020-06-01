@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head></head>
+
+	<body>
+		<nav>
+			<a href="/tiendaOnline">Tienda Online</a>
+			
+			<div>
+				<ul>
+					<li><a href="/tiendaOnline/producto/crearproducto">CREAR PRODUCTO</a></li>
+				</ul>
+				<ul>
+					<li><a href="/tiendaOnline/categoria/crearcategoria">CREAR CATEGORIA</a></li>
+				</ul>
+				<ul>
+					<li><a href="/tiendaOnline/categoria/list">TODAS LAS CATEGORIAS</a></li>
+				</ul>
+				
+				<form th:action="@{/producto/list}"	method="post">
+					<input type="text" placeholder="Busca un producto" aria-label="Search" name="producto">
+					<button type="submit">BUSCAR PRODUCTO</button>
+				</form>
+				
+				<br/>
+				
+				<div>
+					<a href="/tiendaOnline/cliente/perfil">PERFIL</a>
+				</div>
+				
+				<br/>
+				
+				<div>
+					<a href="/tiendaOnline/compras/cesta">CARRO</a>
+				</div>
+			</div>
+			
+		</nav>
+	</body>
+	
+</html>
+

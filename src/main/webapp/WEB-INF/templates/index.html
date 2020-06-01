@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Tienda Online</title>
+	</head>
+	
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+	
+		<div>
+			<h2>PRODUCTOS DE LA TIENDA ONLINE</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>NOMBRE</th>
+						<th>PRECIO</th>
+						<th>STOCK</th>
+						<th>IMAGEN</th>
+						<th>DETALLES</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="producto : ${productos}">
+						<td th:text="${producto.nombreProducto}"></td>
+						<td th:text="${producto.precio}"></td>
+						<td th:text="${producto.stock}"></td>
+						<td th:if="${producto.imagen.isEmpty()}"><img th:src="@{/images/mostaza.jpg}" alt="Foto no disponible"></td>
+						<td th:if="${!producto.imagen.isEmpty()}"><img th:src="@{/producto/imagen/{idProducto}(idProducto=${producto.idProducto})}"
+							alt="Foto disponible"></td>
+						<td><a href=# th:href="@{/producto/detallesProducto/{idProducto}(idProducto = ${producto.idProducto})}">
+						DETALLES</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

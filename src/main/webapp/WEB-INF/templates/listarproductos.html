@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>LISTADO DE PRODUCTOS</title>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+		
+		<div>
+			<h2>LISTADO DE PRODUCTOS</h2>			
+			<div>
+					<div>
+						<div>CATEGORIAS</div>
+						<ul>
+							<li th:each="categoria : ${categorias}">
+								<a href=# th:href="@{/producto/listar/{idCategoria}(idCategoria = ${categoria.idCategoria})}"
+								th:text="${categoria.nombreCategoria}"></a>
+							</li>
+						</ul>
+					</div>
+					
+
+						<div th:switch="${productos}">
+							<div th:case="*">
+								<div id="pagination-1">
+									<div th:each="producto : ${productos}">
+												<div th:if='${producto.imagen.isEmpty()}'>
+													<img th:src='@{/images/mostaza.jpg}'>
+												</div>
+												
+												<div th:if='${!producto.imagen.isEmpty()}'>
+													<img th:src='@{/producto/imagen/{idProducto}(idProducto=${producto.idProducto})}'>
+												</div>
+												
+												<div>
+													<h5 th:text='${producto.nombreProducto}'></h5>
+													<p th:text='${producto.descripcion}'></p>
+													<a href=# 
+														th:href='@{/producto/detallesProducto/{idProducto}(idProducto = ${producto.idProducto})}'>
+														DETALLES
+													</a>
+												</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+			</div>
+		</div>
+	
+		<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script th:src="@{/js/jQuery.paginate.js}"></script>
+		
+		<script>
+			$('#pagination-1').paginate({
+				items_per_page : 4
+			});
+		</script>
+	</body>
+</html>

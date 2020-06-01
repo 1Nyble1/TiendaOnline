@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>CREAR PRODUCTO</title>
+	</head>
+	
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+	
+		<div>
+			<h2>CREAR PRODUCTO</h2>
+			<div>
+					<div>
+						<form th:action="@{/producto/crearproducto}" method="post"
+							enctype="multipart/form-data" id="crearP">
+							<div>
+								<div>
+									<label for="nombreProducto"></label>NOMBRE: <input
+										type="text" id="nombreProducto" name="nombreProducto"
+										placeholder="Nombre" required pattern="[A-Za-z]{5,40}" />
+								</div>
+								
+								<div>
+									<label for="precio"></label>PRECIO: <input type="number"
+										id="precio" name="precio" placeholder="Precio" required
+										pattern="[0-9]" />
+								</div>
+								
+								<div>
+									<label for="stock"></label>STOCK: <input type="number"
+										id="stock" name="stock" placeholder="Stock" required
+										pattern="[0-9]" />
+								</div>
+								
+								<div>
+									<label for="categoria"></label>CATEGORIA: <select id="categoria"
+										name="categoria"> 
+										<option th:each="categoria : ${categorias}"
+											th:value="${categoria.nombreCategoria}"
+											th:text="${categoria.nombreCategoria}"></option>
+									</select>
+								</div>
+								
+								<div>
+									<label for="descripcion"></label>DESCRIPCION: <input type="text"
+										placeholder="Descripcion" id="descripcion" name="descripcion" />
+								</div>
+								
+								<div>
+									<label for="imagen"></label>IMAGEN: <input type="file"
+										id="imagen" name="imagen" />
+								</div>
+								
+								<div>
+									<input type="submit" value="CREAR PRODUCTO" />
+								</div>
+								<script type="text/javascript">
+									$('#crearP').submit(function(evento) {
+										$.ajax({
+											url : 'producto/crearproducto',
+											type : 'POST',
+											data : JSON.stringify({
+												nombreProducto : $('#nombreProducto').val(),
+												precio : $('#precio').val(),
+												stock : $('#stock').val(),
+												categoria : $('#categoria').val(),
+												descripcion : $('#descripcion').val(),
+												imagen : $('#imagen').val()
+											}),
+											processData : false,
+											contentType : "application/json"
+										})
+										evento.preventDefault();
+									});
+								</script>
+							</div>
+						</form>
+					</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head></head>
+		
+	<body>
+		<nav>
+			<a href="/tiendaOnline">Tienda Online</a>
+	
+			<div>
+				<ul>
+					<li><a href="/tiendaOnline/login">LOGUEARSE</a></li>
+					<li><a href="/tiendaOnline/signup">REGISTRARSE</a></li>
+				</ul>
+	
+				<form th:action="@{/producto/list}"	method="post">
+					<input  type="text"	placeholder="Busca un producto" aria-label="Search" name="producto">
+					<button  type="submit">BUSCAR PRODUCTO</button>
+				</form>
+			</div>
+			
+		</nav>
+	</body>
+	
+</html>
+

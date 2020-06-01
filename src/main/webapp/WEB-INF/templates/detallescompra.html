@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>DETALLES COMPRA</title>
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+		
+		<div>
+			<h2>DETALLES COMPRA</h2>
+			<div>
+				<div>
+					<h3 th:text="${compra.fecha}"></h3>
+					<div>
+						<table>
+							<thead>
+								<tr>
+									<th>PRODUCTO</th>
+									<th>UNIDADES</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<tr th:each="venta : ${ventas}">
+									<td th:text="${venta.producto.nombreProducto}"></td>
+									<td th:text="${venta.unidades}"></td>
+									<td><a href=#
+									th:href="@{/producto/detallesProducto/{idProducto}(idProducto = ${venta.producto.idProducto})}">
+									DETALLES</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div>
+						<h3>PRECIO TOTAL:</h3>
+						<h3 th:text="${compra.precioT}"></h3>
+						<a href=#
+						th:href="@{/compras/devolucion/{idCompra}(idCompra = ${compra.idCompra})}">
+						DEVOLUCION PEDIDO</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

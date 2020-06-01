@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>COMPRAS</title>
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+
+		<div>
+			<h2>COMPRAS</h2>
+		</div>
+		
+		<div>
+			<table>
+				<tr>
+					<td>PRODUCTO</td>
+					<td>UNIDADES</td>
+					<td>FECHA DE COMPRA</td>
+					<td>PRECIO</td>
+				</tr>
+				<tr th:each="compra : ${compras}">
+					<td th:text="${compras.producto}"></td>
+					<td th:text="${compras.unidades}"></td>
+					<td th:text="${compras.fecha}"></td>
+					<td th:text="${compras.precioT}"></td>
+					<td><a href=# th:href="@{/compra/detallesCompra/{idCompra}(idCompra = ${compra.idCompra})}">
+					DETALLES</a></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

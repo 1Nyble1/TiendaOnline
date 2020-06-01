@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>REGISTRARSE</title>
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+		
+		<div>
+			<h2>REGISTRARSE</h2>
+				<div>
+					<p th:if="${exception}">Contrasenna o usuario incorrecto</p>
+					
+					<form action="#" th:action="@{/signup}" method="post" id="signup">
+						<div>
+							<div>
+								<h3>DATOS PERSONALES</h3>
+							</div>
+							
+							<div>
+								<label for="username"></label>USUARIO: <input type="text"
+									name="username" placeholder="Usuario" required
+									pattern="[A-Za-z0-9]{4,20}" /><br />
+							</div>
+							
+							<div>
+								<label for="password"></label>CONTRASENNA: <input type="text"
+									name="password" placeholder="Contrasenna" required
+									pattern="[A-Za-z0-9]{4,50}" /> <br />
+							</div>
+							
+							<div>
+								<label for="nombre"></label>NOMBRE: <input type="text"
+									name="nombre" placeholder="Nombre" required
+									pattern="[A-Za-z]{4,20}" /> <br />
+							</div>
+							
+							<div>
+								<label for="apellidos"></label>APELLIDOS: <input type="text"
+									name="apellidos" placeholder="Apellidos" required
+									pattern="[A-Za-z]+[ ]+[A-Za-z]{4,40}" /> <br />
+							</div>
+							
+							<div>
+								<label for="email"></label>EMAIL: <input type="text" 
+									name="email" placeholder="Email" required
+									pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" /><br />
+							</div>
+							
+							<div>
+								<label for="fechaNa"></label>FECHA NACIMIENTO: <input type="date"
+									 name="fechaNa" placeholder="Fecha de nacimiento"/> <br />
+							</div>
+							
+							<div>
+								<label for="direccion"></label>DIRECCION ENVIO: <input type="text" 
+									name="direccionEnvio" placeholder="Direccion de envio"/> <br />
+							</div>
+
+							<div>
+								<h3>DATOS DE FACTURACION</h3>
+							</div>
+
+							<div>
+								<label for="banco"></label>BANCO: <input type="text" 
+									name="banco" placeholder="Banco" required
+									pattern="[A-Za-z]{4,20}" /><br />
+							</div>
+							
+							<div>
+								<label for="numTarjeta"></label>TARJETA: <input type="number"
+									name="numTarjeta" placeholder="Numero de la tarjeta"
+									required pattern="[0-9]{16}" /> <br />
+							</div>
+							
+							<div>
+								<label for="titular"></label>TITULAR: <input type="text"
+									name="titular" placeholder="Titular" required
+									pattern="[A-Za-z]{4,20}" /> <br />
+							</div>
+							
+							<div>
+								<label for="codigoS"></label>CODIGO DE SEGURIDAD: <input
+									type="number" name="codigoS" placeholder="Codigo de seguridad"
+									required pattern="[0-9]{3}" /><br />
+							</div>
+							
+							<div>
+								<label for="direccionFa"></label>DIRECCION FACTURACION: <input
+									type="text" name="direccionFa" placeholder="Direccion de facturacion"/> <br />
+							</div>
+							
+							<div>
+								<input type="submit" value="REGISTRARSE" />
+							</div>
+							
+							<script type="text/javascript">
+ 								$('#signup').submit(function(evento) {
+ 									$.ajax({ 
+										url : 'signup', 
+										type : 'POST',
+										data : JSON.stringify({
+											username : $('#username').val(),
+											password : $('#password').val(),
+											nombre : $('#nombre').val(),
+											apellidos : $('#apellidos').val(),
+											email : $('#email').val(),
+											fechaNa : $('#fechaNa').val(),
+											direccion : $('#direccion').val(),
+											banco : $('#banco').val(),
+											numTarjeta : $('#numTarjeta').val(),
+											titular : $('#titular').val(),
+											codigoS : $('#codigoS').val(),
+											direccionFa : $('#direccionFa').val()
+										}),
+										processData : false,
+										contentType : "application/json"
+									})
+									evento.preventDefault();
+								});
+							</script>
+						</div>
+					</form>
+			</div>
+		</div>
+	</body>
+</html>

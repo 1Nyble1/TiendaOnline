@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EDITAR USUARIO</title>
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>		
+		
+		<div>
+			<h2>EDITAR PERFIL</h2>
+			<div>
+					<div>
+						<form th:action="@{/editarcliente}" method="post" id="editar">
+							<div>
+								<div>
+									<h3>DATOS DEL USUARIO</h3>
+								</div>
+								
+								<div>
+									<label for="username"></label>USUARIO: <input type="text"
+										th:value="${cliente.nombreUsuario}" id="username"
+										name="username" placeholder="Usuario" required
+										pattern="[A-Za-z0-9]{4,20}" /><br />
+								</div>
+								
+								<div>
+									<label for="password"></label>CONTRASENNA: <input type="text"
+										th:value="${cliente.password}" id="password" name="password" placeholder="Contrasenna" required
+										pattern="[A-Za-z0-9]{4,50}" /><br />
+								</div>
+								
+								<div>
+									<label for="nombre"></label>NOMBRE: <input type="text"
+										th:value="${cliente.nombre}" id="nombre" name="nombre"
+										placeholder="Nombre" required pattern="[A-Za-z]{4,20}" /><br />
+								</div>
+								
+								<div>
+									<label for="apellidos"></label>APELLIDOS: <input type="text"
+										th:value="${cliente.apellidos}" id="apellidos" name="apellidos"
+										placeholder="Apellidos" required
+										pattern="[A-Za-z]+[ ]+[A-Za-z]{4,50}" /><br />
+								</div>
+								
+								<div>
+									<label for="email"></label>EMAIL: <input type="text" id="email"
+										th:value="${cliente.email}" name="email" required placeholder="Email"
+										pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" /><br />
+								</div>
+								
+								<div>
+									<label for="fechaNa"></label>FECHA DE NACIMIENTO: <input placeholder="Fecha de nacimiento"
+									 type="date" id="fechaNa" name="fechaNa" /> <br />
+								</div>
+								
+								<div>
+									<label for="direccion"></label>DIRECCION DE ENVIO: <input placeholder="Direccion de envio"
+										type="text" th:value="${cliente.direccionEnvio}"
+										id="direccion" name="direccionEnvio" /> <br />
+								</div>
+
+								<div>
+									<h3>DATOS DE FACTURACION</h3>
+								</div>
+
+								<div>
+									<label for="banco"></label>BANCO: <input type="text"
+										th:value="${cliente.banco}" id="banco" name="banco"
+										placeholder="Banco" required pattern="[A-Za-z]{4,20}" /><br />
+								</div>
+								
+								<div>
+									<label for="numTarjeta"></label>NUMERO DE TARJETA: <input
+										type="number" id="numTarjeta" name="numTarjeta"
+										th:value="${cliente.numTarjeta}" placeholder="Numero de tarjeta"
+										required pattern="[0-9]{16}" /><br />
+								</div>
+								
+								<div>
+									<label for="titular"></label>TITULAR: <input type="text"
+										id="titular" name="titular" th:value="${cliente.titular}"
+										placeholder="Titular" required pattern="[A-Za-z]{5,20}" /><br />
+								</div>
+								
+								<div>
+									<label for="codigoS"></label>CODIGO DE SEGURIDAD: <input
+										type="number" id="codigoS" th:value="${cliente.codigoS}"
+										name="codigoS" placeholder="Codigo de seguridad" required pattern="[0-9]{3}" /><br />
+								</div>
+								
+								<div>
+									<label for="direccionFa"></label>DIRECCION DE FACTURACION: <input placeholder="Direccion de facturacion"
+										type="text" th:value="${cliente.direccionFa}" id="direccionFa"
+										name="direccionFa" /> <br />
+								</div>
+								
+								<div>
+									<input type="submit" value="EDITAR" />
+								</div>
+								
+								<script type="text/javascript">
+									$('#editar').submit(function(evento) {
+										$.ajax({
+											url : 'editarcliente',
+											type : 'POST',
+											data : JSON.stringify({
+												username : $('#username').val(),
+												password : $('#password').val(),
+												nombre : $('#nombre').val(),
+												apellidos : $('#apellidos').val(),
+												email : $('#email').val(),
+												fechaNa : $('#fechaNa').val(),
+												direccion : $('#direccion').val(),
+												banco : $('#banco').val(),
+												numTarjeta : $('#numTarjeta').val(),
+												titular : $('#titular').val(),
+												codigoS : $('#codigoS').val(),
+												direccionFa : $('#direccionFa').val()
+											}),
+											processData : false,
+											contentType : "application/json"
+										})
+										evento.preventDefault();
+									});
+								</script>
+							</div>
+						</form>
+					</div>
+			</div>
+		</div>
+		
+		<form th:action="@{/Borrar}">
+			<input type="submit" value="BORRAR" />
+		</form>
+
+	</body>
+</html>

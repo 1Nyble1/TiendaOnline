@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head></head>
+	<body>
+		<nav sec:authorize="isAnonymous()"
+			th:replace="cabeceras/cabecera_public"></nav>
+		<nav
+			sec:authorize="hasAuthority('ROL_USER') && !hasAuthority('ROL_ADMIN')"
+			th:replace="cabeceras/cabecera_user"></nav>
+		<nav sec:authorize="hasAuthority('ROL_ADMIN')"
+			th:replace="cabeceras/cabecera_admin"></nav>
+	</body>
+</html>

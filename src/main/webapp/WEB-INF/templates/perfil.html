@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:text="${session.accountSession}" th:unless="${session ==null}"></title>
+		<title>PERFIL</title>
+	</head>
+	
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+		
+		<div>
+			<h2>PERFIL</h2>
+		</div>
+		
+		<div>
+			<h3>DATOS PERSONALES</h3>
+			<table>
+				<tr>
+					<td>USUARIO</td>
+					<td>NOMBRE</td>
+					<td>APELLIDOS</td>
+					<td>EMAIL</td>
+					<td>FECHA DE NACIMIENTO</td>
+					<td>DIRECCION DE ENVIO</td>
+				</tr>
+				<tr>
+					<td th:text="${account.nombreUsuario}"></td>
+					<td th:text="${account.nombre}"></td>
+					<td th:text="${account.apellidos}"></td>
+					<td th:text="${account.email}"></td>
+					<td th:text="${account.fechaNa}"></td>
+					<td th:text="${account.direccionEnvio}"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div>
+			<h3>DATOS DE FACTURACION</h3>
+			<table>
+				<tr>
+					<td>BANCO</td>
+					<td>NUMERO DE TARJETA</td>
+					<td>TITULAR</td>
+					<td>CODIGO DE SEGURIDAD</td>
+					<td>DIRECCION DE FACTURACION</td>
+				</tr>
+				<tr>
+					<td th:text="${account.banco}"></td>
+					<td th:text="${account.numTarjeta}"></td>
+					<td th:text="${account.titular}"></td>
+					<td th:text="${account.codigoS}"></td>
+					<td th:text="${account.direccionFa}"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<br /><br />
+		
+		<div>
+			<a href="/tiendaOnline/compras/miscompras"> COMPRAS </a>
+			<br />
+			<a href="/tiendaOnline/editarcliente"> EDITAR </a>
+			<br /><br /><br />
+			<a href="/tiendaOnline/cliente/cerrar"> DESCONECTAR </a>
+			<br />
+		</div>
+	</body>
+</html>

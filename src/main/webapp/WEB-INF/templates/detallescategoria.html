@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>DETALLES CATEGORIA</title>
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+	
+		<div>
+			<h2>DETALLES CATEGORIA</h2>
+			<div>
+				<div>
+					<label type="hidden" id="idCategoria" name="idCategoria"
+						th:value="${categoria.idCategoria}"></label>
+					<form action="#" th:object="${categoria}" method="post">
+						<h2>NOMBRE</h2>
+						<p id="nombreCategoria" name="nombreCategoria" th:text="*{nombreCategoria}"></p>
+						<h2>DESCRIPCION</h2>
+						<p id="descripcionCategoria" name="descripcionCategoria" th:text="*{descripcionCategoria}"></p>
+					</form>
+					
+					<table>
+						<thead>
+							<tr>
+								<th>PRODUCTOS</th>
+								<th>INFORMACION</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<tr th:each="producto : ${productos}">
+								<td th:text="${producto.nombreProducto}"></td>
+								<td><a href=#
+								th:href="@{/producto/detallesProducto/{idProducto}(idProducto = ${producto.idProducto})}">DETALLES</a></td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<div>
+						<div sec:authorize="hasAuthority('ROL_ADMIN')">
+							<a href=#
+							th:href="@{/categoria/editarcategoria/{idCategoria}(idCategoria = ${categoria.idCategoria})}">
+							EDITAR CATEGORIA</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EDITAR CATEGORIA</title>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	</head>
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+	
+		<div>
+			<h2>EDITAR CATEGORIA</h2>
+			<div>
+					<div>
+						<form
+							th:action="@{/categoria/editarcategoria/{idCategoria}(idCategoria = ${categoria.idCategoria})}"
+							method="post" id="editarC">
+
+							<div>
+								<div>
+									<label for="nombreProducto"></label>NOMBRE: <input type="text"
+										id="nombreCategoria" name="nombreCategoria"
+										th:value="${categoria.nombreCategoria}" placeholder="Nombre"
+										required pattern="[A-Za-z]{5,40}" />
+								</div>
+								
+								<div>
+									<label for="descripcion"></label>DESCRIPCION: <input type="text"
+										id="descripcionCategoria" name="descripcionCategoria" placeholder="Descripcion"
+										th:value="${categoria.descripcionCategoria}" />
+								</div>
+								
+								<div>
+									<input type="submit" value="EDITAR" />
+								</div>
+								
+								<script type="text/javascript">
+									$('#editarC').submit(function(evento) {
+										$.ajax({
+											url : 'categoria/editarcategoria/{idCategoria}(idCategoria = ${categoria.idCategoria})',
+											type : 'POST',
+											data : JSON.stringify({
+												nombreCategoria : $('#nombreCategoria').val(),
+												descripcionCategoria : $('#descripcionCategoria').val()
+											}),
+											processData : false,
+											contentType : "application/json"
+										})
+										evento.preventDefault();
+									});
+								</script>
+							</div>
+						</form>
+					</div>
+			</div>
+		</div>
+		<form
+			th:action="@{/categoria/borrarcategoria/{idCategoria}(idCategoria = ${categoria.idCategoria})}"
+			method="get">
+			<input type="submit" value="BORRAR" />
+		</form>
+	</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>EDITAR PRODUCTO</title>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>
+	
+		<div>
+			<h2>EDITAR PRODUCTO</h2>
+			<div>
+					<div>
+						<form
+							th:action="@{/producto/editarproducto/{idProducto}(idProducto = ${producto.idProducto})}"
+							method="post" enctype="multipart/form-data" id="editarP">
+							<div>
+								<div>
+									<label for="nombreProducto"></label>NOMBRE: <input
+										type="text" id="nombreProducto" name="nombreProducto"
+										th:value="${producto.nombreProducto}" placeholder="Nombre"
+										required pattern="[A-Za-z]{5,40}" />
+								</div>
+								
+								<div>
+									<label for="precio"></label>PRECIO: <input type="number"
+										id="precio" name="precio" th:value="${producto.precio}"
+										placeholder="Precio" required pattern="[0-9]" />
+								</div>
+								
+								<div>
+									<label for="stock"></label>STOCK: <input type="number"
+										id="stock" name="stock" th:value="${producto.stock}"
+										placeholder="Stock" required pattern="[0-9]" />
+								</div>
+								
+								<div>
+									<label for="categoria"></label>CATEGORIA:
+									<select id="categoria" name="categoria">
+										<option th:each="categoria : ${categorias}"
+											th:value="${categoria.nombreCategoria}"
+											th:text="${categoria.nombreCategoria}"></option>
+									</select>
+								</div>
+								
+								<div>
+									<label for="descripcion"></label>DESCRIPCION: <input type="text"
+										id="descripcion" name="descripcion" placeholder="Descripcion"
+										th:value="${producto.descripcion}" />
+								</div>
+								
+								<div>
+									<label for="imagen"></label>IMAGEN: <input type="file"
+										id="imagen" name="imagen" />
+								</div>
+								
+								<div>
+									<input type="submit" value="EDITAR" />
+								</div>
+								
+								<script type="text/javascript">
+									$('#editarP').submit(function(evento) {
+										$.ajax({
+											url : 'producto/editarproducto/{idProducto}(idProducto = ${producto.idProducto})',
+											type : 'POST',
+											data : JSON.stringify({
+												nombreProducto : $('#nombreProducto').val(),
+												precio : $('#precio').val(),
+												stock : $('#stock').val(),
+												categoria : $('#categoria').val(),
+												descripcion : $('#descripcion').val(),
+												imagen : $('#imagen').val()
+											}),
+											processData : false,
+											contentType : "application/json"
+										})
+										evento.preventDefault();
+									});
+								</script>
+							</div>
+						</form>
+					</div>
+			</div>
+		</div>
+		<form
+			th:action="@{/producto/borrarproducto/{idProducto}(idProducto = ${producto.idProducto})}"
+			method="get">
+			<input type="submit" value="BORRAR" />
+		</form>
+	</body>
+</html>

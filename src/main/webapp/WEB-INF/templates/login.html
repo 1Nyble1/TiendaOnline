@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>INICIAR SESION</title>
+	</head>
+
+	<body>
+		<header>
+			<nav th:replace="cabeceras/cabecera_loader"></nav>
+		</header>		
+		
+		<div>
+			<h2>INICIAR SESION</h2>
+			<div>
+					<p th:if="${exception}">Contrasenna o usuario incorrecto</p>
+					
+					<form action="#" th:action="@{/login}" method="post">
+						<div>
+							<div>
+								<h3>DATOS INICIO SESION</h3>
+							</div>
+							<div>
+								<label for="username"></label>USUARIO: <input
+									type="text" name="username" placeholder="Usuario"
+									required pattern="[A-Za-z0-9]{4,20}" /><br />
+							</div>
+							
+							<div>
+								<label for="password"></label>CONTRASENNA: <input type="password"
+									name="password" placeholder="Contrasenna" required
+									pattern="[A-Za-z0-9]{4,40}" /><br />
+							</div>
+							
+							<div>
+								<input type="submit" value="INICIAR SESION" />
+							</div>
+							
+							<script type="text/javascript">
+								$('#login').submit(function(evento) {
+									$.ajax({
+										url : 'login',
+										type : 'POST',
+										data : JSON.stringify({
+											nombreCategoria : $('#username').val(),
+											descripcionCategoria : $('#password').val()
+										}),
+										processData : false,
+										contentType : "application/json"
+									})
+									evento.preventDefault();
+								});
+							</script>
+						</div>
+					</form>
+					
+					<div th:if="${param.error}" role="alert">
+						Campos invalidos</div>
+			</div>
+		</div>
+	</body>
+</html>
